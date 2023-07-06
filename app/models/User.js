@@ -73,44 +73,21 @@ class User {
       }
     }
 
-    
-
-    // static async findAllPerCategory(categoryId) {
-    //   try {
-    //       const { rows } = await db.query('SELECT * FROM project where category_id=$1', [
-    //         categoryId,
-    //       ]);
-    //       if (rows) {
-    //         return rows.map((row) => new Project(row));;
-    //       }
-    //       return null;
-    //   } catch (error) {
-    //       console.log(error);
-    //       if (error.detail) {
-    //         throw new Error(error.detail);
-    //       }
-    //       throw error;
-    //   }
-    // }
-
-    // static async findOneBySlug(projectSlug) {
-    //   try {
-    //       const { rows } = await db.query('SELECT * FROM project where slug=$1', [
-    //         projectSlug,
-    //       ]);
-    //       if (rows[0]) {
-    //         return new Project(rows[0]);
-    //       }
-    //       return null;
-    //   } catch (error) {
-    //       console.log(error);
-    //       if (error.detail) {
-    //         throw new Error(error.detail);
-    //       }
-    //       throw error;
-    //   }
-    // }
-
+    async delete() {
+      try {
+        await db.query(
+          'DELETE FROM "user" WHERE id = $1',
+          [this.id]
+        );
+        return;
+      } catch (error) {
+        console.log(error);
+        if (error.detail) {
+          throw new Error(error.detail);
+        }
+        throw error;
+      }
+    }
     
 }
 

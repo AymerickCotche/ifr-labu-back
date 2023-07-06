@@ -26,7 +26,7 @@ module.exports = {
     try {
       const user = await new User(request.body).create();
       request.body.newUser = user;
-      next();
+      return user
     } catch (error) {
       console.log(error);
       response.status(500).json(error.message);
@@ -37,6 +37,16 @@ module.exports = {
     try {
       await new User(request.body).edit();
       next();
+    } catch (error) {
+      console.log(error);
+      response.status(500).json(error.message);
+    }
+  },
+
+  async delete(request, response, next) {
+    try {
+      await new User(request.body).delete();
+      return
     } catch (error) {
       console.log(error);
       response.status(500).json(error.message);
